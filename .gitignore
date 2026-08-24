@@ -1,0 +1,50 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Virtual environment
+venv/
+.venv/
+env/
+
+# Environment variables
+.env
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# ML models (downloaded at runtime)
+backend/models/*.onnx
+backend/models/*.pt
+backend/models/*.bin
+backend/models/*.safetensors
+*.onnx
+*.pt
+*.bin
+*.safetensors
+
+# Temporary processing files
+backend/tmp/
+tmp/
+
+# Evaluation results (large images)
+evaluation/results/
+
+# Node modules (if any)
+node_modules/
+
+# Logs
+*.log

@@ -1,0 +1,31 @@
+# Ghost Mannequin MVP - Python Dependencies
+# Phase 1: CPU-only pipeline
+
+# API Framework
+fastapi>=0.104.0
+uvicorn[standard]>=0.24.0
+python-multipart>=0.0.6
+pydantic>=2.0.0
+pydantic-settings>=2.0.0
+
+# Image Processing
+Pillow>=10.0.0
+opencv-python-headless>=4.8.0
+numpy>=1.24.0
+scikit-image>=0.21.0
+
+# Background Removal (MIT license, uses U2-Net ONNX)
+rembg[cpu]>=2.0.50
+onnxruntime>=1.16.0
+
+# Utilities
+python-dotenv>=1.0.0
+aiofiles>=23.2.1
+slowapi>=0.1.8
+
+# --- Phase 2 (GPU, optional) ---
+# Uncomment when GPU is available:
+# torch>=2.0.0
+# diffusers>=0.25.0
+# transformers>=4.35.0
+# accelerate>=0.25.0
