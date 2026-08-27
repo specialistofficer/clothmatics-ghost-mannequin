@@ -1,4 +1,4 @@
-const API_BASE = 'http://localhost:8000';
+const API_BASE = 'http://127.0.0.1:8000';
 
 document.addEventListener('DOMContentLoaded', () => {
     const dropZone = document.getElementById('drop-zone');
@@ -154,9 +154,43 @@ document.addEventListener('DOMContentLoaded', () => {
             debugResults.classList.add('hidden');
             standardResults.classList.remove('hidden');
             
-            const finalUrl = getFullUrl(data.output_url);
-            resultImg.src = finalUrl;
-            downloadBtn.href = finalUrl;
+            // Clear old multi-garment results if any (except the first original image card)
+            const cards = standardResults.querySelectorAll('.image-card');
+            for(let i=1; i<cards.length; i++) {
+                cards[i].remove();
+            }
+            
+            if (data.output_urls && Object.keys(data.output_urls).length > 0) {
+                // Multi-garment response
+                Object.entries(data.output_urls).forEach(([label, relUrl]) => {
+                    const finalUrl = getFullUrl(relUrl);
+                    const title = label === "main" ? "Result" : `Result (${label})`;
+                    
+                    const card = document.createElement('div');
+                    card.className = 'image-card';
+                    card.innerHTML = `
+                        <h3>${title}</h3>
+                        <div class="img-container">
+                            <img src="${finalUrl}" alt="${title}">
+                        </div>
+                        <a href="${finalUrl}" download="ghost_mannequin_${label}.png" class="secondary-btn">Download ${label}</a>
+                    `;
+                    standardResults.appendChild(card);
+                });
+            } else {
+                // Fallback for single legacy response
+                const finalUrl = getFullUrl(data.output_url);
+                const card = document.createElement('div');
+                card.className = 'image-card';
+                card.innerHTML = `
+                    <h3>Result</h3>
+                    <div class="img-container">
+                        <img src="${finalUrl}" alt="Result">
+                    </div>
+                    <a href="${finalUrl}" download="ghost_mannequin.png" class="secondary-btn">Download Result</a>
+                `;
+                standardResults.appendChild(card);
+            }
         }
     }
     
